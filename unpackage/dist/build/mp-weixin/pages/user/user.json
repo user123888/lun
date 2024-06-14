@@ -1,0 +1,12 @@
+{
+  "navigationBarBackgroundColor": "#f8f8f8",
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-popup": "/uni_modules/uview-ui/components/u-popup/u-popup",
+    "u-avatar": "/uni_modules/uview-ui/components/u-avatar/u-avatar",
+    "u-button": "/uni_modules/uview-ui/components/u-button/u-button",
+    "uni-section": "/uni_modules/uni-section/components/uni-section/uni-section",
+    "qiun-data-charts": "/uni_modules/qiun-data-charts/components/qiun-data-charts/qiun-data-charts"
+  }
+}

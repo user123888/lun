@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/user/user",
+    "pages/task/task",
+    "pages/addTask/addTask",
+    "pages/myTask/myTask",
+    "pages/editTask/editTask",
+    "pages/myHelp/myHelp",
+    "pages/lookTask/lookTask",
+    "pages/decideTask/decideTask",
+    "pages/test/test"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#f8f8f8",
+    "backgroundColor": "#f8f8f8"
+  },
+  "tabBar": {
+    "color": "#000000",
+    "selectedColor": "#489dff",
+    "fontSize": "26px",
+    "height": "80px",
+    "list": [
+      {
+        "text": "首页",
+        "pagePath": "pages/index/index",
+        "iconPath": "static/home.png",
+        "selectedIconPath": "static/homeblue.png"
+      },
+      {
+        "text": "委托",
+        "pagePath": "pages/task/task",
+        "iconPath": "static/item.png",
+        "selectedIconPath": "static/itemblue.png"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/user/user",
+        "iconPath": "static/user.png",
+        "selectedIconPath": "static/userbule.png"
+      }
+    ]
+  },
+  "lazyCodeLoading": "requiredComponents",
+  "subPackageBuildType": "shared",
+  "usingComponents": {}
+}

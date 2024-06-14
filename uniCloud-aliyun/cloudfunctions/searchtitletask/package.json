@@ -1,0 +1,7 @@
+{
+  "name": "twosearchtask",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}

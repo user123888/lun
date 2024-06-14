@@ -1,0 +1,122 @@
+{
+
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				
+			}
+		},
+		{
+			"path" : "pages/user/user",
+			"style" : 
+			{
+				"navigationBarBackgroundColor":"#f8f8f8",
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/task/task",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/addTask/addTask",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/myTask/myTask",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/editTask/editTask",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/myHelp/myHelp",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/lookTask/lookTask",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/decideTask/decideTask",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/test/test",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		// "navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#f8f8f8",
+		"backgroundColor": "#f8f8f8"
+	},
+	"uniIdRouter": {},
+	"easycom": {
+			"^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
+		},
+	"tabBar": {
+	"color":"#000000",
+	"selectedColor":"#489dff",
+	"fontSize":"26px",
+	"height":"80px",
+		"list": [
+			{
+				"text":"首页",
+				
+				
+			"pagePath":"pages/index/index",
+			"iconPath":"static/home.png",
+			"selectedIconPath":"static/homeblue.png"
+			},
+			{
+				"text":"委托",
+			"pagePath":"pages/task/task",
+			"iconPath":"static/item.png",
+			"selectedIconPath": "static/itemblue.png"
+			},
+			{
+				"text":"我的",
+			"pagePath":"pages/user/user",
+			"iconPath":"static/user.png",
+			"selectedIconPath": "static/userbule.png"
+			}
+			
+			
+		]
+		}
+}

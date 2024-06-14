@@ -1,0 +1,7 @@
+{
+  "name": "searchtaskid",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}

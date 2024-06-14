@@ -1,0 +1,1 @@
+.BoxImg{width:200rpx;height:200rpx;padding-right:45rpx}.contentBox{width:100%;height:300rpx;overflow:hidden;display:flex;border-radius:20rpx;background-color:#fff;margin-bottom:30rpx;justify-content:space-between;align-items:center}text{padding-left:30rpx;font-size:48rpx;font-weight:900}

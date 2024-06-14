@@ -1,0 +1,23 @@
+
+.iconBox{
+	padding: 20rpx 10px 10px 50rpx;
+}
+.title{
+	font-size: 40rpx;
+	font-weight: bold;
+	padding-left: 50rpx;
+}
+.Box{
+	height: 1800rpx;
+	padding-left: 30rpx;
+	padding-right: 30rpx;
+	margin-top: 30rpx;
+	display: flex;
+	flex-flow: column;
+	flex-wrap: wrap;
+}
+.headerIcon{
+	width: 80rpx;
+	height: 80rpx;
+}
+

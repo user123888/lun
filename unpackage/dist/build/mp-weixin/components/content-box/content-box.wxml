@@ -1,0 +1,1 @@
+<view><view class="contentBox"><text><slot></slot>-></text><image class="BoxImg" src="{{imgUrl}}"></image></view></view>

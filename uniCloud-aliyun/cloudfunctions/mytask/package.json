@@ -1,0 +1,7 @@
+{
+  "name": "mytask",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}
