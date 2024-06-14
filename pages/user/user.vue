@@ -11,11 +11,11 @@
 							<text>设置头像</text>
 						</view>
 						<view class="inpRightBox">
-							
-							
+
+
 							<button class="avatarBtn" open-type="chooseAvatar" @chooseavatar="onChooseAvatar">
-								
-								
+
+
 								<u-avatar :src="avatarUrl" shape="square" size="40"></u-avatar>
 							</button>
 
@@ -80,7 +80,7 @@
 			<!-- 第一个菜单框 -->
 			<view class="InFirstOrder">
 				<!-- 每一项  -->
-				<view class="OrderList borderLine">
+				<view class="OrderList borderLine" @click="goHistory">
 					<view class="list-left ">
 						<image src="../../static/searchnew.png" style="width: 20px;height: 20px;"></image>
 						<text class="textcontent">查询记录</text>
@@ -158,7 +158,11 @@
 
 			}
 		},
-
+		onShow() {
+			uniCloud.callFunction({
+				name: 'wakeup',
+			}).then(res => console.log(res.result.data[0].lun))
+		},
 		methods: {
 			submitUser() {
 				this.show = false
@@ -169,7 +173,7 @@
 				console.log(e.detail.avatarUrl)
 				this.avatarUrl = e.detail.avatarUrl
 				console.log(this.avatarUrl)
-				
+
 				// 上传图片到unicloud的云存储空间
 				uniCloud.uploadFile({
 					filePath: this.avatarUrl,
@@ -191,14 +195,22 @@
 					}.bind(this)
 				});
 			},
-
 			open() {
 				// console.log('open');
+			},
+			goHistory() {
+				uni.navigateTo({
+					url: '/pages/history/history',
+
+				})
 			},
 			close() {
 				this.show = false
 			},
 			login() {
+				uniCloud.callFunction({
+					name: 'wakeup'
+				})
 				if (!this.isLogin) {
 					uni.showModal({
 						title: "微信授权一键登录",
@@ -214,13 +226,12 @@
 							}
 							uni.showLoading({
 								title: "登录中",
-								duration: 1500
+								// duration: 3000
 							})
 							uni.getUserProfile({
 								desc: '获取数据',
 								success: (res) => {
 									this.getWeiXinData(res.userInfo)
-									this.show = true
 									this.isLogin = 1
 
 								},
@@ -234,8 +245,8 @@
 					})
 				}
 			},
-	async getWeiXinData(userInfo) {
-			await uni.login({
+			async getWeiXinData(userInfo) {
+				await uni.login({
 					provider: 'weixin'
 				}).then(res => {
 					uniCloud.callFunction({
@@ -246,53 +257,53 @@
 					}).then(r => {
 
 						this.openid = r.result.openid
+						this.show = true
 
 					})
 				})
 			},
-		async	getData(openid) {
-
-
+			async getData(openid) {
 				uni.setStorageSync('openid', openid)
 
-			await 	uniCloud.database().collection('user').where({
+				await uniCloud.database().collection('user').where({
 					openid: openid
 				}).get().then(res => {
-					this.userData =  res.result.data
-					if (res.result.data.length !== 0 && this.openid) {
+					this.userData = res.result.data
+				})
+				if (this.userData.length !== 0 && this.openid) {
 
-						this.nickname = this.userData[0].name
-						this.avatarUrl = this.userData[0].imgurl
-						this.isLogin = 1
+					this.nickname = this.userData[0].name
+					this.avatarUrl = this.userData[0].imgurl
+					this.isLogin = 1
+					uni.showToast({
+						title: '登录成功！',
+					})
+					this.getServerData()
+					console.log(this.userData)
+
+
+				} else if (this.openid) {
+					uniCloud.database().collection('user').add({
+						name: this.nickname,
+						imgurl: this.fileID,
+						openid: openid
+					}).then(res => {
 						uni.showToast({
 							title: '登录成功！',
 						})
 						this.getServerData()
-						console.log("走1")
-						console.log(res.result.data.length)
-						console.log(res.result.data)
-					} else if (this.openid) {
-						uniCloud.database().collection('user').add({
-							name: this.nickname,
-							imgurl: this.fileID,
-							openid: openid
-						}).then(res => {
-							uni.showToast({
-								title: '登录成功！',
-							})
-							this.getServerData()
-							console.log("走2")
-							console.log('添加成功！')
-							// console.log(this.fileID)
-						})
-					} else {
-						uni.showToast({
-							title: "网络错误!"
-						})
-						console.log("走3")
-						this.isLogin = 0
-					}
-				})
+						console.log("走2")
+						console.log('添加成功！')
+						// console.log(this.fileID)
+					})
+				} else {
+					uni.showToast({
+						title: "网络错误!"
+					})
+					console.log("走3")
+					this.isLogin = 0
+				}
+
 			},
 			getServerData() {
 				//模拟从服务器获取数据时的延时
@@ -357,7 +368,7 @@
 
 	.userBox {
 		transform: translateY(100rpx);
-		height: 150px;
+		height: 100px;
 		width: 60%;
 		border-radius: 50rpx;
 		// background-color: #ffffff;
@@ -416,7 +427,7 @@
 
 	.list-left {
 		margin-left: 20px;
-		width: 50%;
+		width: 80%;
 		height: 50px;
 		display: flex;
 		align-items: center;

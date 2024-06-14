@@ -38,7 +38,7 @@
 .userBox {
   -webkit-transform: translateY(100rpx);
           transform: translateY(100rpx);
-  height: 150px;
+  height: 100px;
   width: 60%;
   border-radius: 50rpx;
   display: flex;
@@ -88,7 +88,7 @@
 }
 .list-left {
   margin-left: 20px;
-  width: 50%;
+  width: 80%;
   height: 50px;
   display: flex;
   align-items: center;

@@ -25,6 +25,11 @@ export default {
 	  taskImgUrl:"../../static/taskblue.png"
         }
     },
+	onShow() {
+		uniCloud.callFunction({
+			name:'wakeup',
+		}).then(res=>console.log(res.result.data[0].lun))
+	},
     methods: {
 		toMyTask(){
 			uni.navigateTo({

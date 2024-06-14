@@ -4,5 +4,5 @@ exports.main = async (event, context) => {
 	console.log('event : ', event)
 	
 	//返回数据给客户端
-	return event
+	return uniCloud.database().collection('wake').get()
 };

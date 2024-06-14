@@ -65,6 +65,7 @@
 	export default {
 		data() {
 			return {
+				eventData: [],
 				//选中帮忙的id
 				id: '',
 				userid:'',
@@ -131,21 +132,28 @@
 					}
 				],
 				tempData: [],
-
-				eventData: [],
 				current: 0,
-				navList: ['综合', '类型', '报酬', '宿舍'],
 
 			};
 		},
-		onLoad() {
-			this.onbegin()
+		onShow() {
+			uniCloud.callFunction({
+				name: 'task'
+			}).then(res => {
+				this.eventData = res.result.data
+				console.log(res.result.data)
+				if(this.eventData.length===0){
+					this.showNull = true
+				}
+			})
+			console.log(6666)
 			this.openid = uni.getStorageSync('openid')
 
 		},
 		methods: {
 			//首次渲染
 			onbegin() {
+				
 				uniCloud.callFunction({
 					name: 'task'
 				}).then(res => {

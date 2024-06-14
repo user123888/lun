@@ -339,6 +339,13 @@ var _default = {
       }
     };
   },
+  onShow: function onShow() {
+    uniCloud.callFunction({
+      name: 'wakeup'
+    }).then(function (res) {
+      return console.log(res.result.data[0].lun);
+    });
+  },
   methods: {
     submitUser: function submitUser() {
       this.show = false;
@@ -371,11 +378,19 @@ var _default = {
     open: function open() {
       // console.log('open');
     },
+    goHistory: function goHistory() {
+      uni.navigateTo({
+        url: '/pages/history/history'
+      });
+    },
     close: function close() {
       this.show = false;
     },
     login: function login() {
       var _this = this;
+      uniCloud.callFunction({
+        name: 'wakeup'
+      });
       if (!this.isLogin) {
         uni.showModal({
           title: "微信授权一键登录",
@@ -390,14 +405,14 @@ var _default = {
               return;
             }
             uni.showLoading({
-              title: "登录中",
-              duration: 1500
+              title: "登录中"
+              // duration: 3000
             });
+
             uni.getUserProfile({
               desc: '获取数据',
               success: function success(res) {
                 _this.getWeiXinData(res.userInfo);
-                _this.show = true;
                 _this.isLogin = 1;
               },
               fail: function fail() {
@@ -428,6 +443,7 @@ var _default = {
                     }
                   }).then(function (r) {
                     _this2.openid = r.result.openid;
+                    _this2.show = true;
                   });
                 });
               case 2:
@@ -451,40 +467,39 @@ var _default = {
                   openid: openid
                 }).get().then(function (res) {
                   _this3.userData = res.result.data;
-                  if (res.result.data.length !== 0 && _this3.openid) {
-                    _this3.nickname = _this3.userData[0].name;
-                    _this3.avatarUrl = _this3.userData[0].imgurl;
-                    _this3.isLogin = 1;
+                });
+              case 3:
+                if (_this3.userData.length !== 0 && _this3.openid) {
+                  _this3.nickname = _this3.userData[0].name;
+                  _this3.avatarUrl = _this3.userData[0].imgurl;
+                  _this3.isLogin = 1;
+                  uni.showToast({
+                    title: '登录成功！'
+                  });
+                  _this3.getServerData();
+                  console.log(_this3.userData);
+                } else if (_this3.openid) {
+                  uniCloud.database().collection('user').add({
+                    name: _this3.nickname,
+                    imgurl: _this3.fileID,
+                    openid: openid
+                  }).then(function (res) {
                     uni.showToast({
                       title: '登录成功！'
                     });
                     _this3.getServerData();
-                    console.log("走1");
-                    console.log(res.result.data.length);
-                    console.log(res.result.data);
-                  } else if (_this3.openid) {
-                    uniCloud.database().collection('user').add({
-                      name: _this3.nickname,
-                      imgurl: _this3.fileID,
-                      openid: openid
-                    }).then(function (res) {
-                      uni.showToast({
-                        title: '登录成功！'
-                      });
-                      _this3.getServerData();
-                      console.log("走2");
-                      console.log('添加成功！');
-                      // console.log(this.fileID)
-                    });
-                  } else {
-                    uni.showToast({
-                      title: "网络错误!"
-                    });
-                    console.log("走3");
-                    _this3.isLogin = 0;
-                  }
-                });
-              case 3:
+                    console.log("走2");
+                    console.log('添加成功！');
+                    // console.log(this.fileID)
+                  });
+                } else {
+                  uni.showToast({
+                    title: "网络错误!"
+                  });
+                  console.log("走3");
+                  _this3.isLogin = 0;
+                }
+              case 4:
               case "end":
                 return _context2.stop();
             }

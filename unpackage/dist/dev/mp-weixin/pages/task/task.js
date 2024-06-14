@@ -193,7 +193,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni, uniCloud) {
+/* WEBPACK VAR INJECTION */(function(uniCloud, uni) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -265,6 +265,7 @@ exports.default = void 0;
 var _default = {
   data: function data() {
     return {
+      eventData: [],
       //选中帮忙的id
       id: '',
       userid: '',
@@ -325,23 +326,31 @@ var _default = {
         name: '岭师快递'
       }],
       tempData: [],
-      eventData: [],
-      current: 0,
-      navList: ['综合', '类型', '报酬', '宿舍']
+      current: 0
     };
   },
-  onLoad: function onLoad() {
-    this.onbegin();
+  onShow: function onShow() {
+    var _this = this;
+    uniCloud.callFunction({
+      name: 'task'
+    }).then(function (res) {
+      _this.eventData = res.result.data;
+      console.log(res.result.data);
+      if (_this.eventData.length === 0) {
+        _this.showNull = true;
+      }
+    });
+    console.log(6666);
     this.openid = uni.getStorageSync('openid');
   },
   methods: {
     //首次渲染
     onbegin: function onbegin() {
-      var _this = this;
+      var _this2 = this;
       uniCloud.callFunction({
         name: 'task'
       }).then(function (res) {
-        _this.eventData = res.result.data;
+        _this2.eventData = res.result.data;
         // console.log(res.result.data)
         // if(this.eventData.length===0){
         // 	this.showNull = true
@@ -357,7 +366,7 @@ var _default = {
     },
     // 第一个筛选条件 苑区
     hallSearch: function hallSearch(hallItem) {
-      var _this2 = this;
+      var _this3 = this;
       this.hallItem = hallItem;
       this.showNull = false;
       if (hallItem.name === "全部" && this.genreItem.name === "全部") {
@@ -370,9 +379,9 @@ var _default = {
             titlename: this.genreItem.name
           }
         }).then(function (res) {
-          _this2.eventData = res.result.data;
-          if (_this2.eventData.length === 0) {
-            _this2.showNull = true;
+          _this3.eventData = res.result.data;
+          if (_this3.eventData.length === 0) {
+            _this3.showNull = true;
           }
         });
       }
@@ -383,9 +392,9 @@ var _default = {
             hallname: hallItem.name
           }
         }).then(function (res) {
-          _this2.eventData = res.result.data;
-          if (_this2.eventData.length === 0) {
-            _this2.showNull = true;
+          _this3.eventData = res.result.data;
+          if (_this3.eventData.length === 0) {
+            _this3.showNull = true;
           }
         });
       }
@@ -397,16 +406,16 @@ var _default = {
             titlename: this.genreItem.name
           }
         }).then(function (res) {
-          _this2.eventData = res.result.data;
-          if (_this2.eventData.length === 0) {
-            _this2.showNull = true;
+          _this3.eventData = res.result.data;
+          if (_this3.eventData.length === 0) {
+            _this3.showNull = true;
           }
         });
       }
     },
     // 第二个类型筛选条件
     genre: function genre(genreItem) {
-      var _this3 = this;
+      var _this4 = this;
       this.showNull = false;
       this.genreItem = genreItem;
       if (this.hallItem.name === "全部" && genreItem.name === "全部") {
@@ -419,9 +428,9 @@ var _default = {
             titlename: genreItem.name
           }
         }).then(function (res) {
-          _this3.eventData = res.result.data;
-          if (_this3.eventData.length === 0) {
-            _this3.showNull = true;
+          _this4.eventData = res.result.data;
+          if (_this4.eventData.length === 0) {
+            _this4.showNull = true;
           }
         });
       }
@@ -432,9 +441,9 @@ var _default = {
             hallname: this.hallItem.name
           }
         }).then(function (res) {
-          _this3.eventData = res.result.data;
-          if (_this3.eventData.length === 0) {
-            _this3.showNull = true;
+          _this4.eventData = res.result.data;
+          if (_this4.eventData.length === 0) {
+            _this4.showNull = true;
           }
         });
       }
@@ -446,9 +455,9 @@ var _default = {
             titlename: this.genreItem.name
           }
         }).then(function (res) {
-          _this3.eventData = res.result.data;
-          if (_this3.eventData.length === 0) {
-            _this3.showNull = true;
+          _this4.eventData = res.result.data;
+          if (_this4.eventData.length === 0) {
+            _this4.showNull = true;
           }
         });
       }
@@ -464,7 +473,7 @@ var _default = {
       this.$refs.alertDialog.open();
     },
     dialogConfirm: function dialogConfirm() {
-      var _this4 = this;
+      var _this5 = this;
       if (this.userid !== this.openid && this.openid) {
         uniCloud.callFunction({
           name: 'helptask',
@@ -473,9 +482,9 @@ var _default = {
             openid: this.openid
           }
         }).then(function (res) {
-          _this4.messageText = "\u63A5\u5355\u6210\u529F\uFF01\u8BF7\u5C3D\u5FEB\u8054\u7CFB\u59D4\u6258\u65B9\u5B8C\u6210\u5E2E\u5FD9\uFF01";
-          _this4.$refs.message.open();
-          _this4.onbegin();
+          _this5.messageText = "\u63A5\u5355\u6210\u529F\uFF01\u8BF7\u5C3D\u5FEB\u8054\u7CFB\u59D4\u6258\u65B9\u5B8C\u6210\u5E2E\u5FD9\uFF01";
+          _this5.$refs.message.open();
+          _this5.onbegin();
         });
       }
       if (this.userid === this.openid) {
@@ -511,7 +520,7 @@ var _default = {
   }
 };
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/uni-cloud/dist/index.js */ 27)["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/uni-cloud/dist/index.js */ 27)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 
