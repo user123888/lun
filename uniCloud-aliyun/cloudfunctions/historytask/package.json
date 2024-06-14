@@ -1,0 +1,7 @@
+{
+  "name": "historytask",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}

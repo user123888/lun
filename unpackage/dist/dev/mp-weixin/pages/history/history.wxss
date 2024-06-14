@@ -41,16 +41,19 @@
 .itemBox {
   height: 35px;
   display: flex;
+  background-color: #ffffff;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgba(214, 219, 223, 0.8);
   margin-bottom: 2px;
 }
 .itemBox .forLeft {
+  color: #666;
   width: 30%;
   margin-left: 15px;
 }
 .itemBox .forRight {
+  color: #666;
   width: 15%;
   margin-right: 15px;
 }

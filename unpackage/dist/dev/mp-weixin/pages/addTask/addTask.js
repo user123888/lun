@@ -274,7 +274,7 @@ var _default = {
         number: '',
         maskClike: 0,
         way: 1,
-        title: "岭师快递",
+        title: "校内代拿",
         datetimesingle: Date.now(),
         money: null
       },

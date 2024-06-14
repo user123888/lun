@@ -132,6 +132,22 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.eventData, function (item, index) {
+    var $orig = _vm.__get_orig(item)
+    var m0 = _vm.change(item)
+    return {
+      $orig: $orig,
+      m0: m0,
+    }
+  })
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0,
+      },
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -165,7 +181,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(uni, uniCloud) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -209,14 +225,43 @@ exports.default = void 0;
 //
 //
 //
-//
-//
 var _default = {
   data: function data() {
-    return {};
+    return {
+      total: null,
+      openid: '',
+      eventData: []
+    };
+  },
+  onLoad: function onLoad() {
+    this.openid = uni.getStorageSync('openid');
+  },
+  onShow: function onShow() {
+    this.begin();
+  },
+  methods: {
+    begin: function begin() {
+      var _this = this;
+      uniCloud.database().collection('task').where(uniCloud.database().command.or({
+        userid: this.openid
+      }, {
+        helperid: this.openid
+      })).get().then(function (res) {
+        _this.eventData = res.result.data;
+        _this.total = res.result.data.length;
+      });
+    },
+    change: function change(item) {
+      if (item.userid === this.openid) {
+        return '委托';
+      } else {
+        return '帮忙';
+      }
+    }
   }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/uni-cloud/dist/index.js */ 27)["default"]))
 
 /***/ }),
 
