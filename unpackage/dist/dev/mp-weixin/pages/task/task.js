@@ -363,6 +363,19 @@ var _default = {
       if (hallItem.name === "全部" && this.genreItem.name === "全部") {
         this.onbegin();
       }
+      if (hallItem.name === "全部" && this.genreItem.name !== "全部") {
+        uniCloud.callFunction({
+          name: 'searchtitletask',
+          data: {
+            titlename: this.genreItem.name
+          }
+        }).then(function (res) {
+          _this2.eventData = res.result.data;
+          if (_this2.eventData.length === 0) {
+            _this2.showNull = true;
+          }
+        });
+      }
       if (hallItem.name !== "全部" && this.genreItem.name === "全部") {
         uniCloud.callFunction({
           name: 'searchhalltask',
@@ -404,6 +417,19 @@ var _default = {
           name: 'searchtitletask',
           data: {
             titlename: genreItem.name
+          }
+        }).then(function (res) {
+          _this3.eventData = res.result.data;
+          if (_this3.eventData.length === 0) {
+            _this3.showNull = true;
+          }
+        });
+      }
+      if (this.hallItem.name !== "全部" && genreItem.name === "全部") {
+        uniCloud.callFunction({
+          name: 'searchhalltask',
+          data: {
+            hallname: this.hallItem.name
           }
         }).then(function (res) {
           _this3.eventData = res.result.data;

@@ -11,7 +11,11 @@
 							<text>设置头像</text>
 						</view>
 						<view class="inpRightBox">
+							
+							
 							<button class="avatarBtn" open-type="chooseAvatar" @chooseavatar="onChooseAvatar">
+								
+								
 								<u-avatar :src="avatarUrl" shape="square" size="40"></u-avatar>
 							</button>
 
@@ -162,9 +166,11 @@
 
 			},
 			onChooseAvatar(e) {
+				console.log(e.detail.avatarUrl)
 				this.avatarUrl = e.detail.avatarUrl
 				console.log(this.avatarUrl)
-				// 上传图片
+				
+				// 上传图片到unicloud的云存储空间
 				uniCloud.uploadFile({
 					filePath: this.avatarUrl,
 					cloudPath: `${this.openid}.jpg`,
@@ -228,8 +234,8 @@
 					})
 				}
 			},
-			getWeiXinData(userInfo) {
-				uni.login({
+	async getWeiXinData(userInfo) {
+			await uni.login({
 					provider: 'weixin'
 				}).then(res => {
 					uniCloud.callFunction({
@@ -244,15 +250,15 @@
 					})
 				})
 			},
-			getData(openid) {
+		async	getData(openid) {
 
 
 				uni.setStorageSync('openid', openid)
 
-				uniCloud.database().collection('user').where({
+			await 	uniCloud.database().collection('user').where({
 					openid: openid
-				}).get().then(async res => {
-					this.userData = await res.result.data
+				}).get().then(res => {
+					this.userData =  res.result.data
 					if (res.result.data.length !== 0 && this.openid) {
 
 						this.nickname = this.userData[0].name

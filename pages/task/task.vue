@@ -170,6 +170,19 @@
 				if (hallItem.name === "全部" && this.genreItem.name === "全部") {
 					this.onbegin()
 				}
+				if (hallItem.name === "全部" && this.genreItem.name !== "全部") {
+					uniCloud.callFunction({
+						name: 'searchtitletask',
+						data: {
+							titlename:this.genreItem.name
+						}
+					}).then(res => {
+						this.eventData = res.result.data
+						if (this.eventData.length === 0) {
+							this.showNull = true
+						}
+					})
+				}
 				if (hallItem.name !== "全部" && this.genreItem.name === "全部") {
 					uniCloud.callFunction({
 						name: 'searchhalltask',
@@ -214,6 +227,19 @@
 						name: 'searchtitletask',
 						data: {
 							titlename: genreItem.name
+						}
+					}).then(res => {
+						this.eventData = res.result.data
+						if (this.eventData.length === 0) {
+							this.showNull = true
+						}
+					})
+				}
+				if (this.hallItem.name !== "全部" && genreItem.name === "全部") {
+					uniCloud.callFunction({
+						name: 'searchhalltask',
+						data: {
+							hallname: this.hallItem.name,
 						}
 					}).then(res => {
 						this.eventData = res.result.data

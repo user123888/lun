@@ -306,6 +306,10 @@ var _input = _interopRequireDefault(__webpack_require__(/*! ../../uni_modules/uv
 //
 //
 //
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
@@ -341,9 +345,11 @@ var _default = {
       this.getData(this.openid);
     },
     onChooseAvatar: function onChooseAvatar(e) {
+      console.log(e.detail.avatarUrl);
       this.avatarUrl = e.detail.avatarUrl;
       console.log(this.avatarUrl);
-      // 上传图片
+
+      // 上传图片到unicloud的云存储空间
       uniCloud.uploadFile({
         filePath: this.avatarUrl,
         cloudPath: "".concat(this.openid, ".jpg"),
@@ -406,34 +412,45 @@ var _default = {
     },
     getWeiXinData: function getWeiXinData(userInfo) {
       var _this2 = this;
-      uni.login({
-        provider: 'weixin'
-      }).then(function (res) {
-        uniCloud.callFunction({
-          name: 'login',
-          data: {
-            code: res.code
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return uni.login({
+                  provider: 'weixin'
+                }).then(function (res) {
+                  uniCloud.callFunction({
+                    name: 'login',
+                    data: {
+                      code: res.code
+                    }
+                  }).then(function (r) {
+                    _this2.openid = r.result.openid;
+                  });
+                });
+              case 2:
+              case "end":
+                return _context.stop();
+            }
           }
-        }).then(function (r) {
-          _this2.openid = r.result.openid;
-        });
-      });
+        }, _callee);
+      }))();
     },
     getData: function getData(openid) {
       var _this3 = this;
-      uni.setStorageSync('openid', openid);
-      uniCloud.database().collection('user').where({
-        openid: openid
-      }).get().then( /*#__PURE__*/function () {
-        var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee(res) {
-          return _regenerator.default.wrap(function _callee$(_context) {
-            while (1) {
-              switch (_context.prev = _context.next) {
-                case 0:
-                  _context.next = 2;
-                  return res.result.data;
-                case 2:
-                  _this3.userData = _context.sent;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                uni.setStorageSync('openid', openid);
+                _context2.next = 3;
+                return uniCloud.database().collection('user').where({
+                  openid: openid
+                }).get().then(function (res) {
+                  _this3.userData = res.result.data;
                   if (res.result.data.length !== 0 && _this3.openid) {
                     _this3.nickname = _this3.userData[0].name;
                     _this3.avatarUrl = _this3.userData[0].imgurl;
@@ -466,17 +483,14 @@ var _default = {
                     console.log("走3");
                     _this3.isLogin = 0;
                   }
-                case 4:
-                case "end":
-                  return _context.stop();
-              }
+                });
+              case 3:
+              case "end":
+                return _context2.stop();
             }
-          }, _callee);
-        }));
-        return function (_x) {
-          return _ref.apply(this, arguments);
-        };
-      }());
+          }
+        }, _callee2);
+      }))();
     },
     getServerData: function getServerData() {
       var _this4 = this;

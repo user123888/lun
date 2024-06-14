@@ -9956,7 +9956,7 @@ var S = "development" === "development",
         "127.0.0.1",
         "192.168.59.1",
         "192.168.141.1",
-        "172.20.10.2"
+        "192.168.10.237"
     ],
     "debugPort": 9000,
     "initialLaunchType": "remote",
