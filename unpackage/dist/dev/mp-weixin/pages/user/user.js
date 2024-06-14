@@ -342,8 +342,6 @@ var _default = {
   onShow: function onShow() {
     uniCloud.callFunction({
       name: 'wakeup'
-    }).then(function (res) {
-      return console.log(res.result.data[0].lun);
     });
   },
   methods: {
@@ -352,9 +350,7 @@ var _default = {
       this.getData(this.openid);
     },
     onChooseAvatar: function onChooseAvatar(e) {
-      console.log(e.detail.avatarUrl);
       this.avatarUrl = e.detail.avatarUrl;
-      console.log(this.avatarUrl);
 
       // 上传图片到unicloud的云存储空间
       uniCloud.uploadFile({
@@ -365,7 +361,6 @@ var _default = {
           var percentCompleted = Math.round(progressEvent.loaded * 100 / progressEvent.total);
         },
         success: function (res) {
-          console.log(res.fileID);
           this.fileID = res.fileID;
           uni.showToast({
             icon: 'none',

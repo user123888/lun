@@ -141,12 +141,10 @@
 				name: 'task'
 			}).then(res => {
 				this.eventData = res.result.data
-				console.log(res.result.data)
 				if(this.eventData.length===0){
 					this.showNull = true
 				}
 			})
-			console.log(6666)
 			this.openid = uni.getStorageSync('openid')
 
 		},
@@ -281,7 +279,6 @@
 			dialogToggle(type, item) {
 				this.id = item._id
 				this.userid=item.userid
-				// console.log(item)
 				this.msgType = type
 				this.$refs.alertDialog.open()
 			},
@@ -328,7 +325,7 @@
 			},
 
 			dialogClose() {
-				console.log('点击关闭')
+				
 			},
 			onSelect(a) {
 				console.log(123)

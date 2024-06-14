@@ -335,12 +335,10 @@ var _default = {
       name: 'task'
     }).then(function (res) {
       _this.eventData = res.result.data;
-      console.log(res.result.data);
       if (_this.eventData.length === 0) {
         _this.showNull = true;
       }
     });
-    console.log(6666);
     this.openid = uni.getStorageSync('openid');
   },
   methods: {
@@ -468,7 +466,6 @@ var _default = {
     dialogToggle: function dialogToggle(type, item) {
       this.id = item._id;
       this.userid = item.userid;
-      // console.log(item)
       this.msgType = type;
       this.$refs.alertDialog.open();
     },
@@ -511,9 +508,7 @@ var _default = {
         });
       }
     },
-    dialogClose: function dialogClose() {
-      console.log('点击关闭');
-    },
+    dialogClose: function dialogClose() {},
     onSelect: function onSelect(a) {
       console.log(123);
     }
