@@ -228,6 +228,7 @@ exports.default = void 0;
 var _default = {
   data: function data() {
     return {
+      btnText: '完成帮忙',
       id: '',
       index: 0,
       array: [{
@@ -280,7 +281,15 @@ var _default = {
       }
     }).then(function (res) {
       // console.log(res.result.data)
+
       _this.customFormData = res.result.data[0];
+      if (_this.customFormData.datetimesingle == 0) {
+        _this.btnText = '已完成 / 不可重复';
+        uni.showToast({
+          title: '帮忙已完成！',
+          duration: 2000
+        });
+      }
     });
   },
   onReady: function onReady() {

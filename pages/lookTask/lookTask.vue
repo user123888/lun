@@ -36,7 +36,7 @@
 						<uni-easyinput disabled v-model="customFormData.money" placeholderStyle="font-size: 16px;" />
 					</uni-forms-item>
 				</uni-forms>
-				<button type="primary" @click="submit()">完成帮忙</button>
+				<button type="primary" @click="submit()">{{btnText}}</button>
 			</view>
 		</uni-section>
 
@@ -47,6 +47,7 @@
 	export default {
 		data() {
 			return {
+				btnText:'完成帮忙',
 				id: '',
 				index: 0,
 				array: [{
@@ -106,7 +107,16 @@
 				}
 			}).then(res => {
 				// console.log(res.result.data)
+				
 				this.customFormData = res.result.data[0]
+				if(this.customFormData.datetimesingle==0){
+					this.btnText='已完成 / 不可重复'
+					uni.showToast({
+						title:'帮忙已完成！',
+						duration:2000
+					})
+					
+				}
 
 			})
 		},
