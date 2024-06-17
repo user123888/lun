@@ -1,13 +1,17 @@
 <template>
-	<view class="">
-
+	<view>
+		<uni-section title="查询记录" titleFontSize="30rpx" class="uniSection">
+			<template v-slot:decoration>
+				<view class="decoration"></view>
+			</template>
+		</uni-section>
 
 		<view>
-			<u-search shape="round"></u-search>
+			<u-search shape="round" @custom='searchValue' @search='searchValue' placeholder='委托类型搜索'></u-search>
 		</view>
 		<view class="search">
 			<u-cell-group>
-				<u-cell title="委托类型" value="委托/帮忙"></u-cell>
+				<u-cell title="创建时间/委托类型" value="委托/帮忙"></u-cell>
 			</u-cell-group>
 		</view>
 		<view class="totalBox">
@@ -17,21 +21,13 @@
 		<!-- 每一个盒子 -->
 		<view class="itemBox" v-for="(item,index) in eventData" :key="index">
 			<view class="forLeft">
-			{{item.title}}
+				{{timestampToDate(item.addtimesingle)}} - {{item.title}}
 			</view>
 			<view class="forRight">
 				{{change(item)}}
 			</view>
 		</view>
 
-		<!-- <view class="itemBox">
-			<view class="forLeft">
-				2021年5月1日
-			</view>
-			<view class="forRight">
-				委托
-			</view>
-		</view> -->
 
 	</view>
 </template>
@@ -40,9 +36,10 @@
 	export default {
 		data() {
 			return {
-				total:null,
+				total: null,
 				openid: '',
-				eventData: []
+				eventData: [],
+				tempData: []
 
 			};
 		},
@@ -63,23 +60,52 @@
 					}))
 					.get()
 					.then(res => {
-						this.eventData=res.result.data
+						this.eventData = res.result.data
+						this.tempData = res.result.data
 						this.total = res.result.data.length
 					})
 			},
-			change(item){
-				if(item.userid===this.openid){
+			change(item) {
+				if (item.userid === this.openid) {
 					return '委托'
-				}
-				else {
+				} else {
 					return '帮忙'
 				}
+			},
+			timestampToDate(timestamp) {
+				const date = new Date(timestamp); // 将时间戳转换为Date对象
+				const options = {
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric'
+				}; // 定义日期格式
+				return new Intl.DateTimeFormat('zh-CN', options).format(date); // 使用Intl.DateTimeFormat进行格式化
+			},
+			searchValue(value) {
+				if (value) {
+					console.log((value))
+					this.eventData = this.tempData.filter(item => item.title == value)
+					this.total = this.eventData.length
+				} else {
+					this.begin()
+				}
 			}
+
 		}
 	}
 </script>
 
 <style lang="scss">
+	$uni-success: #42ca86 !default;
+
+	.decoration {
+		width: 10px;
+		height: 10px;
+		margin-right: 4px;
+		border-radius: 50%;
+		background-color: $uni-success;
+	}
+
 	.search {
 
 		margin-top: 10px;
@@ -94,7 +120,7 @@
 
 	.total {
 		margin-left: 10px;
-		font-size: 12px;
+		font-size: 14px;
 		color: #999;
 	}
 
@@ -109,7 +135,7 @@
 
 		.forLeft {
 			color: #666;
-			width: 30%;
+			width: 75%;
 			margin-left: 15px;
 		}
 

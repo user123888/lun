@@ -102,7 +102,7 @@ var components
 try {
   components = {
     contentBox: function () {
-      return __webpack_require__.e(/*! import() | components/content-box/content-box */ "components/content-box/content-box").then(__webpack_require__.bind(null, /*! @/components/content-box/content-box.vue */ 248))
+      return __webpack_require__.e(/*! import() | components/content-box/content-box */ "components/content-box/content-box").then(__webpack_require__.bind(null, /*! @/components/content-box/content-box.vue */ 264))
     },
   }
 } catch (e) {

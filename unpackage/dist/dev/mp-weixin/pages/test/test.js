@@ -102,10 +102,10 @@ var components
 try {
   components = {
     uCollapse: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-collapse/u-collapse */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-collapse/u-collapse")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-collapse/u-collapse.vue */ 413))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-collapse/u-collapse */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-collapse/u-collapse")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-collapse/u-collapse.vue */ 429))
     },
     uCollapseItem: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-collapse-item/u-collapse-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-collapse-item/u-collapse-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-collapse-item/u-collapse-item.vue */ 421))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-collapse-item/u-collapse-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-collapse-item/u-collapse-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-collapse-item/u-collapse-item.vue */ 437))
     },
   }
 } catch (e) {

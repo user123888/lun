@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "uni-section": "/uni_modules/uni-section/components/uni-section/uni-section",
+    "u-line": "/uni_modules/uview-ui/components/u-line/u-line"
+  }
+}

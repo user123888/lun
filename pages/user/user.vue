@@ -43,17 +43,6 @@
 					</view>
 				</view>
 
-				<!-- <button class="avatarBtn" open-type="chooseAvatar" @chooseavatar="onChooseAvatar">
-					<u-avatar :src="avatarUrl" shape="square" size="60"></u-avatar>
-				</button>
-				<input ref="inputName" class="nameInput" type="nickname" placeholder="昵称" v-model="nickname" />
-				<view class="btnBox">
-					<u-button size="default" type="primary" :plain="true" shape="circle" @click="submitUser"
-						text="确定"></u-button>
-
-					<u-button size="default" type="primary" :plain="true" shape="circle" @click="submitUser"
-						text="已设置,跳过"></u-button>
-				</view> -->
 			</view>
 		</u-popup>
 		<view class="bgcBox">
@@ -90,7 +79,7 @@
 					</view>
 				</view>
 				<!-- 每一项 -->
-				<view class="OrderList borderLine">
+				<view class="OrderList borderLine" @click="goGuide">
 					<view class="list-left">
 						<image src="../../static/guide.png" style="width: 20px;height: 20px;"></image>
 						<text class="textcontent">新手指导</text>
@@ -99,7 +88,7 @@
 						<image src="../../static/row.png" style="width: 16px;height: 16px;"></image>
 					</view>
 				</view>
-				<view class="OrderList">
+				<view class="OrderList" @click="goUserService">
 					<view class="list-left">
 						<image src="../../static/customer.png" style="width: 20px;height: 20px;"></image>
 						<text class="textcontent">联系客服</text>
@@ -201,6 +190,16 @@
 
 				})
 			},
+			goGuide(){
+				uni.navigateTo({
+					url: '/pages/guide/guide',
+				})
+			},
+			goUserService(){
+				uni.navigateTo({
+					url:'/pages/userservice/userservice'
+				})
+			},
 			close() {
 				this.show = false
 			},
@@ -289,7 +288,6 @@
 							title: '登录成功！',
 						})
 						this.getServerData()
-						console.log("走2")
 						console.log('添加成功！')
 						// console.log(this.fileID)
 					})
@@ -297,7 +295,6 @@
 					uni.showToast({
 						title: "网络错误!"
 					})
-					console.log("走3")
 					this.isLogin = 0
 				}
 

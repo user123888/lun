@@ -10,7 +10,9 @@
     "pages/lookTask/lookTask",
     "pages/decideTask/decideTask",
     "pages/test/test",
-    "pages/history/history"
+    "pages/history/history",
+    "pages/guide/guide",
+    "pages/userservice/userservice"
   ],
   "subPackages": [],
   "window": {

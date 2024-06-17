@@ -13,5 +13,6 @@ exports.main = async (event, context) => {
 		title:event.title,
 		userid:event.userid,
 		helperid:0,
+		addtimesingle:event.addtimesingle
 	})
 };

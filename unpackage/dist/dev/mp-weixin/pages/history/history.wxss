@@ -24,6 +24,13 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.decoration {
+  width: 10px;
+  height: 10px;
+  margin-right: 4px;
+  border-radius: 50%;
+  background-color: #42ca86;
+}
 .search {
   margin-top: 10px;
   margin-bottom: 5px;
@@ -35,7 +42,7 @@
 }
 .total {
   margin-left: 10px;
-  font-size: 12px;
+  font-size: 14px;
   color: #999;
 }
 .itemBox {
@@ -49,7 +56,7 @@
 }
 .itemBox .forLeft {
   color: #666;
-  width: 30%;
+  width: 75%;
   margin-left: 15px;
 }
 .itemBox .forRight {

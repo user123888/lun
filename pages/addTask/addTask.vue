@@ -101,6 +101,7 @@
 					way: 1,
 					title: "校内代拿",
 					datetimesingle: Date.now(),
+					addtimesingle:Date.now(),
 					money: null
 				},
 				// 自定义表单校验规则
@@ -187,7 +188,8 @@
 							hall: this.customFormData.hall,
 							money: Number(this.customFormData.money),
 							title: this.customFormData.title,
-							userid: this.openid
+							userid: this.openid,
+							addtimesingle:this.customFormData.addtimesingle
 						}
 					}).then(res => {
 						console.log(res)
