@@ -146,10 +146,10 @@ var render = function () {
   var _c = _vm._self._c || _h
   var l0 = _vm.__map(_vm.eventData, function (item, index) {
     var $orig = _vm.__get_orig(item)
-    var g0 = Math.floor(_vm.changeTime(item.datetimesingle) / 1000 / 60)
+    var m0 = _vm.changeTime(item.datetimesingle)
     return {
       $orig: $orig,
-      g0: g0,
+      m0: m0,
     }
   })
   _vm.$mp.data = Object.assign(
@@ -277,12 +277,18 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
 var _default = {
   components: {},
   data: function data() {
     return {
       //选中的id
       id: "",
+      flag: false,
       openid: null,
       //分段器数据
       list: ['进行中', '已完成', '已超时'],
@@ -345,7 +351,7 @@ var _default = {
       //  this.btnMsg="去发布"
       if (index === 0) {
         this.eventData = this.newData.filter(function (item) {
-          return item.datetimesingle - Date.now() > 0;
+          return item.datetimesingle - Date.now() > 0 && item.datetimesingle !== 0;
         });
         if (this.eventData.length === 0) {
           this.showNull = true;
@@ -360,7 +366,7 @@ var _default = {
         }
       }
       if (index === 2) this.eventData = this.newData.filter(function (item) {
-        return item.datetimesingle - Date.now() < 0;
+        return item.datetimesingle - Date.now() < 0 && item.datetimesingle !== 0;
       });
       if (this.eventData.length === 0) {
         this.showNull = true;
@@ -373,9 +379,12 @@ var _default = {
     },
     //转换时间格式
     changeTime: function changeTime(time) {
-      var limitTime = time - Date.now();
-      // console.log(Date.now())
-      return limitTime;
+      if (time) {
+        var limitTime = time - Date.now();
+        return Math.floor(limitTime / 1000 / 60);
+      } else {
+        return 0;
+      }
     },
     change: function change(index) {
       // if (this.currentIndex = index)

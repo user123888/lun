@@ -38,7 +38,7 @@
 									<view class="inBoxList">
 										<image src="../../static/time.png" style="width: 16px;height: 16px;"></image>
 										<text class="content-text"> <text
-												style="color:#333">剩余:{{Math.floor(((changeTime(item.datetimesingle))/1000)/60)}}分钟</text></text>
+												style="color:#333">剩余:{{changeTime(item.datetimesingle)}}分钟</text></text>
 									</view>
 								</view>
 
@@ -114,21 +114,7 @@
 		},
 		onLoad() {
 			this.onBegin()
-			// this.openid = uni.getStorageSync('openid')
-			// uniCloud.callFunction({
-			// 	name: 'mytask',
-			// 	data: {
-			// 		userid: this.openid
-			// 	}
-
-			// }).then(res => {
-
-			// 	this.newData = res.result.data
-			// 	if (this.curNow === 0) {
-			// 		this.eventData = this.newData.filter(item => item.datetimesingle - Date.now() > 0)
-			// 	}
-
-			// })
+		
 		},
 		methods: {
 			sectionChange(index) {
@@ -136,7 +122,7 @@
 				this.curNow = index
 				this.showNull = false
 				if (index === 0) {
-					this.eventData = this.newData.filter(item => item.datetimesingle - Date.now() > 0)
+					this.eventData = this.newData.filter(item => item.datetimesingle - Date.now() > 0&&item.datetimesingle!==0)
 					if (this.eventData.length === 0) {
 						this.showNull = true
 					}
@@ -149,7 +135,7 @@
 					}
 				}
 				if (index === 2)
-					this.eventData = this.newData.filter(item => item.datetimesingle - Date.now() < 0)
+					this.eventData = this.newData.filter(item => item.datetimesingle - Date.now() < 0&&item.datetimesingle!==0)
 				if (this.eventData.length === 0) {
 					this.showNull = true
 				}
@@ -184,9 +170,14 @@
 			
 			//转换时间格式
 			changeTime(time) {
+				if(time){
 				let limitTime = time - Date.now();
-				// console.log(Date.now())
-				return limitTime
+				
+				return Math.floor(((limitTime)/1000)/60)
+				}
+			   else {
+				   return 0
+			   }
 			},
 
 
@@ -284,7 +275,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		width: 60%;
+		width: 80%;
 		height: 120px;
 	}
 
@@ -297,6 +288,7 @@
 	}
 
 	.inBoxList {
+		width: 100%;
 		display: flex;
 		align-items: center;
 		color: #666;
@@ -310,7 +302,7 @@
 		font-size: 16px;
 		height: 21px;
 		line-height: 21px;
-		width: 60%;
+		width: 80%;
 		margin-left: 10rpx;
 
 	}

@@ -128,7 +128,9 @@
 .data-v-9e2199f4 .is-disabled {
   color: #666 !important;
 }
-.data-v-9e2199f4 .uni-date-editor--x, .uni-date-editor--x__disabled.data-v-9e2199f4, .uni-date-x--border.data-v-9e2199f4 {
+.data-v-9e2199f4 .uni-date-editor--x,
+.uni-date-editor--x__disabled.data-v-9e2199f4,
+.uni-date-x--border.data-v-9e2199f4 {
   opacity: 1;
 }
 

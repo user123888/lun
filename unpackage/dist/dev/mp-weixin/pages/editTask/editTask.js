@@ -229,6 +229,7 @@ exports.default = void 0;
 var _default = {
   data: function data() {
     return {
+      btnText: '完成编辑',
       openid: '',
       index: 0,
       array: [{
@@ -303,8 +304,6 @@ var _default = {
   },
   onLoad: function onLoad(option) {
     var _this = this;
-    console.log(option.id);
-    console.log(option);
     this.openid = option.id;
     uniCloud.callFunction({
       name: 'searchtaskid',
@@ -312,9 +311,16 @@ var _default = {
         id: option.id
       }
     }).then(function (res) {
-      // console.log(res.result.data)
       _this.customFormData = res.result.data[0];
-      console.log(_this.customFormData);
+      if (_this.customFormData.datetimesingle == 0) {
+        _this.btnText = '已完成 / 不可编辑';
+        _this.customFormData = [];
+        uni.showToast({
+          title: '不可编辑！',
+          duration: 2000
+        });
+        $(":disabled");
+      }
     });
   },
   onReady: function onReady() {

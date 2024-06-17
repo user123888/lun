@@ -11,7 +11,7 @@
 				<!-- 自定义表单校验 -->
 				<uni-forms ref="customForm" :rules="customRules" :modelValue="customFormData">
 					<uni-forms-item label="苑区" required name="hall">
-						<uni-easyinput v-model="customFormData.hall" placeholderStyle="font-size: 16px;" />
+						<uni-easyinput v-model="customFormData.hall" ref="input" placeholderStyle="font-size: 16px;" />
 					</uni-forms-item>
 
 					<uni-forms-item label="方式" required name="way">
@@ -37,7 +37,7 @@
 							placeholderStyle="font-size: 16px;" />
 					</uni-forms-item>
 				</uni-forms>
-				<button type="primary" @click="submit('customForm')">完成编辑</button>
+				<button type="primary" @click="submit('customForm')">{{btnText}}</button>
 			</view>
 		</uni-section>
 
@@ -48,6 +48,7 @@
 	export default {
 		data() {
 			return {
+				btnText:'完成编辑',
 				openid: '',
 				index: 0,
 				array: [{
@@ -131,8 +132,6 @@
 		},
 
 		onLoad: function(option) {
-			console.log(option.id)
-			console.log(option)
 			this.openid = option.id
 			uniCloud.callFunction({
 				name: 'searchtaskid',
@@ -140,9 +139,17 @@
 					id: option.id
 				}
 			}).then(res => {
-				// console.log(res.result.data)
 				this.customFormData = res.result.data[0]
-				console.log(this.customFormData)
+			   if(this.customFormData.datetimesingle==0){
+				   this.btnText='已完成 / 不可编辑'
+				   this.customFormData=[]
+				   uni.showToast({
+				   	title:'不可编辑！',
+					duration:2000
+				   })
+				   $(":disabled")
+				   
+			   }
 			})
 		},
 

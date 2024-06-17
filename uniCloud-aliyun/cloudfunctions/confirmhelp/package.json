@@ -1,0 +1,7 @@
+{
+  "name": "confirmhelp",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}

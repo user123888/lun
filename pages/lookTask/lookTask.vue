@@ -10,8 +10,8 @@
 			<view class="example">
 				<!-- 自定义表单校验 -->
 				<uni-forms ref="customForm" :rules="customRules" :modelValue="customFormData">
-					<uni-forms-item label="苑区" required >
-						<uni-easyinput v-model="customFormData.hall" disabled  placeholderStyle="font-size: 16px;" />
+					<uni-forms-item label="苑区" required>
+						<uni-easyinput v-model="customFormData.hall" disabled placeholderStyle="font-size: 16px;" />
 					</uni-forms-item>
 
 					<uni-forms-item label="方式" required>
@@ -22,18 +22,18 @@
 					</uni-forms-item>
 					<uni-forms-item label="委托类型" required>
 						<view class="pickerBox">
-							<picker disabled  class="picker" :range="array" :value="0" range-key="name" selector-type="select"
-								@change="changePcikerVal">
+							<picker disabled class="picker" :range="array" :value="0" range-key="name"
+								selector-type="select" @change="changePcikerVal">
 								{{ array[index].name }}
 							</picker>
 						</view>
 					</uni-forms-item>
 					<uni-forms-item label="截止时间" required>
-						<uni-datetime-picker  disabled type="datetime" return-type="timestamp" @maskClick="maskClick"
+						<uni-datetime-picker disabled type="datetime" return-type="timestamp" @maskClick="maskClick"
 							v-model="customFormData.datetimesingle" />
 					</uni-forms-item>
 					<uni-forms-item label='委托酬金' required>
-						<uni-easyinput disabled  v-model="customFormData.money" placeholderStyle="font-size: 16px;"/>
+						<uni-easyinput disabled v-model="customFormData.money" placeholderStyle="font-size: 16px;" />
 					</uni-forms-item>
 				</uni-forms>
 				<button type="primary" @click="submit()">完成帮忙</button>
@@ -47,6 +47,7 @@
 	export default {
 		data() {
 			return {
+				id: '',
 				index: 0,
 				array: [{
 						id: '1',
@@ -77,7 +78,7 @@
 				}, {
 					text: '微信',
 					value: 1
-				},{
+				}, {
 					text: '电话',
 					value: 2
 				}],
@@ -89,36 +90,15 @@
 					maskClike: 0,
 					way: null,
 					datetimesingle: null,
-					
+
 				},
 				// 自定义表单校验规则
-				customRules: {
-					way: {
-						rules: [{
-							required: true,
-							errorMessage: '联系方式不能为空'
-						}]
-					},
-					name: {
-						rules: [{
-							required: true,
-							errorMessage: '昵称不能为空'
-						}]
-					},
-					number: {
-						rules: [{
-							required: true,
-							errorMessage: '号码不能为空'
-						}]
-					}
-				}
+
 			}
 		},
 
 		onLoad: function(option) {
-			console.log(option.id)
-			console.log(option)
-			this.openid = option.id
+			this.id = option.id
 			uniCloud.callFunction({
 				name: 'searchtaskid',
 				data: {
@@ -127,7 +107,7 @@
 			}).then(res => {
 				// console.log(res.result.data)
 				this.customFormData = res.result.data[0]
-				
+
 			})
 		},
 		onReady() {
@@ -150,20 +130,27 @@
 			onchange(e) {
 				console.log('onchange:', e);
 			},
-			maskClick(e) {
-				console.log('123123');
-			},
 
 			onClickItem(e) {
 				console.log(e);
 				this.current = e.currentIndex
 			},
 			submit() {
-				
+				uniCloud.callFunction({
+					name: 'confirmhelp',
+					data: {
+						id: this.id
+					}
+				}).then(res => {
 					uni.showToast({
 						title: `确定成功！`
 					})
-				}
+					uni.navigateTo({
+						url:'/pages/myHelp/myHelp'
+					})
+				})
+
+			}
 		},
 	}
 </script>
@@ -223,6 +210,7 @@
 		padding-left: 10px;
 		width: 100%;
 	}
+
 	.blackBox {
 		height: 10px;
 	}
@@ -231,54 +219,75 @@
 		width: 100px !important;
 		font-size: 16px;
 	}
-/deep/.uni-easyinput__content-input{
-	font-size: 16px;
-	::-ms-input-placeholder {
+
+	/deep/.uni-easyinput__content-input {
+		font-size: 16px;
+
+		::-ms-input-placeholder {
+			font-size: 16px;
+		}
+	}
+
+	::-webkit-input-placeholder {
+		/*Webkit browsers*/
+		color: #999;
 		font-size: 16px;
 	}
-}
-::-webkit-input-placeholder{/*Webkit browsers*/
-	color:#999;
-	font-size:16px;
-}
-:-moz-placeholder{/*Mozilla Firefox 4 to 8*/
-	color:#999;
-	font-size:16px;
-}
-::moz-placeholder{/*Mozilla Firefox 19+*/
-	color:#999;
-	font-size:16px;
-}
-:-ms-input-placeholder{/*Internet Explorer 10+*/
-    color:#999;
-    font-size:16px;
-}
-/deep/.checklist-group{
-	font-size: 16px;
-}
-/deep/.checklist-text{
-	font-size: 16px!important;
-}
-/deep/.uni-date__x-input{
-	font-size:16px;
-}
-/deep/.pickerBox{
-	font-size: 16px;
-	color: #18bc37;
-}
-/deep/.uni-input-input:disabled {
-    -webkit-text-fill-color: #666;
-}
-/deep/.uni-textarea-textarea:disabled {
-    -webkit-text-fill-color: #666;
-}
-/deep/.uni-date-editor--x__disabled[data-v-6e13d7e2]{
-	opacity: 1;
-}
-/deep/ .is-disabled {
-	color: #666 !important;
-}
-/deep/.uni-date-editor--x,.uni-date-editor--x__disabled, .uni-date-x--border{
-	opacity: 1;
-}
+
+	:-moz-placeholder {
+		/*Mozilla Firefox 4 to 8*/
+		color: #999;
+		font-size: 16px;
+	}
+
+	::moz-placeholder {
+		/*Mozilla Firefox 19+*/
+		color: #999;
+		font-size: 16px;
+	}
+
+	:-ms-input-placeholder {
+		/*Internet Explorer 10+*/
+		color: #999;
+		font-size: 16px;
+	}
+
+	/deep/.checklist-group {
+		font-size: 16px;
+	}
+
+	/deep/.checklist-text {
+		font-size: 16px !important;
+	}
+
+	/deep/.uni-date__x-input {
+		font-size: 16px;
+	}
+
+	/deep/.pickerBox {
+		font-size: 16px;
+		color: #18bc37;
+	}
+
+	/deep/.uni-input-input:disabled {
+		-webkit-text-fill-color: #666;
+	}
+
+	/deep/.uni-textarea-textarea:disabled {
+		-webkit-text-fill-color: #666;
+	}
+
+	/deep/.uni-date-editor--x__disabled[data-v-6e13d7e2] {
+		opacity: 1;
+	}
+
+	/deep/ .is-disabled {
+		color: #666 !important;
+	}
+
+	/deep/.uni-date-editor--x,
+	.uni-date-editor--x__disabled,
+	.uni-date-x--border {
+		opacity: 1;
+	}
 </style>

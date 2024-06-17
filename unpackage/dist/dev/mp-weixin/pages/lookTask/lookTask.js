@@ -228,6 +228,7 @@ exports.default = void 0;
 var _default = {
   data: function data() {
     return {
+      id: '',
       index: 0,
       array: [{
         id: '1',
@@ -264,35 +265,14 @@ var _default = {
         maskClike: 0,
         way: null,
         datetimesingle: null
-      },
-      // 自定义表单校验规则
-      customRules: {
-        way: {
-          rules: [{
-            required: true,
-            errorMessage: '联系方式不能为空'
-          }]
-        },
-        name: {
-          rules: [{
-            required: true,
-            errorMessage: '昵称不能为空'
-          }]
-        },
-        number: {
-          rules: [{
-            required: true,
-            errorMessage: '号码不能为空'
-          }]
-        }
       }
+      // 自定义表单校验规则
     };
   },
+
   onLoad: function onLoad(option) {
     var _this = this;
-    console.log(option.id);
-    console.log(option);
-    this.openid = option.id;
+    this.id = option.id;
     uniCloud.callFunction({
       name: 'searchtaskid',
       data: {
@@ -323,16 +303,23 @@ var _default = {
     onchange: function onchange(e) {
       console.log('onchange:', e);
     },
-    maskClick: function maskClick(e) {
-      console.log('123123');
-    },
     onClickItem: function onClickItem(e) {
       console.log(e);
       this.current = e.currentIndex;
     },
     submit: function submit() {
-      uni.showToast({
-        title: "\u786E\u5B9A\u6210\u529F\uFF01"
+      uniCloud.callFunction({
+        name: 'confirmhelp',
+        data: {
+          id: this.id
+        }
+      }).then(function (res) {
+        uni.showToast({
+          title: "\u786E\u5B9A\u6210\u529F\uFF01"
+        });
+        uni.navigateTo({
+          url: '/pages/myHelp/myHelp'
+        });
       });
     }
   }
